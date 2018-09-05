@@ -15,12 +15,19 @@ subplot(211)
     legend('De 0 a 0.1 segundos')
     title('Señal de voz')
     
-% Calcular la fft
+% Limitar muestras de la senal y a 8000
+y = y(1:8000);
+    
+% Calcular la fft y centrarla
 val = fftshift(fft(y));
+
+% Crear vector de frecuencia
+f = -fs/2 : fs/2;
+f = f(1:8000);
 
 % Graficar espectro
 subplot(212)
-    plot(abs(val)); grid on
+    plot(f, abs(val)); grid on
     xlabel('Tiempo (s)')
     ylabel('Amplitud')
     title('Señal de voz')
