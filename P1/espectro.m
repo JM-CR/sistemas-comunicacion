@@ -24,17 +24,13 @@ subplot(211)
     xlabel('Tiempo (s)')
     ylabel('Amplitud')
     legend('De 0 a 0.1 segundos')
-    title('Señal de voz')
-    
-% Limitar muestras de la senal y a fs
-y = y(1:fs);
-    
+    title('Josue y Rodrigo (A)')
+ 
 % Calcular la fft y centrarla
 val = fftshift(fft(y));
 
 % Crear vector de frecuencia
-f = -fs/2 : fs/2;
-f = f(1:fs);
+f = -fs/2 : fs/(length(y) - 1) : fs/2;
 
 % Graficar espectro
 subplot(212)
