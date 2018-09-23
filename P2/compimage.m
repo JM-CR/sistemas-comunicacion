@@ -1,11 +1,14 @@
 function compimage(dir, umbral)
 
 % Leer imagen original - 25/Septiembre/2018
-A = imread(dir);
-I = rgb2gray(A);
+A = imread(dir);     % Leer imagen
+I = rgb2gray(A);     % Pasar a blanco y negro
 
 % Calcular probabilidad de cada mensaje - 25/Septiembre/2018
-
+mensaje = 0:255;                   % Mensajes disponibles
+count = histcounts(I, mensaje);    % Contar total de cada mensaje
+total = numel(I);                  % Total de mensajes
+fr = count/total;                  % Cálculo de frecuencia relativa
 
 % Dividir imagen en bloques de 8x8 pixeles
 % Aplicar DCT a cada bloque de 8x8 pixeles
@@ -24,7 +27,6 @@ I = rgb2gray(A);
 % Calcular porcentaje Err (ECM/Pot)
 
 % Desplegar imagen original - 25/Septiembre/2018
-H = figure
 subplot(221)
     imshow(I)
     title('Original')
