@@ -15,8 +15,9 @@ fr = count/total;                  % Cálculo de frecuencia relativa
 % Hacer cero los coeficientes de la DCT mayores a 'umbral'
 % Aplicar DCT inversa a la matriz con valores de cero
 
-% Calcular la entropía de la imagen original - 25/Septiembre/2018
+% Calcular la entropía (H) de la imagen original - 25/Septiembre/2018
 
+H=sum(fr.*log2(1./fr), 'omitnan');
 
 % Calcular la entropía de la DCT
 % Calcular la entropía de la DCT inversa
@@ -30,6 +31,7 @@ fr = count/total;                  % Cálculo de frecuencia relativa
 subplot(221)
     imshow(I)
     title('Original')
+    xlabel(['H =  ',num2str(H)])
 
 % Desplegar DCT
 % Desplegar DCT con coeficientes de cero
