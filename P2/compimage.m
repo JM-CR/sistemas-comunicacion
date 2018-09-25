@@ -23,22 +23,16 @@ function compimage(dir, umbral)
 A = imread(dir);     % Leer imagen
 I = rgb2gray(A);     % Pasar a blanco y negro
 
-% Calcular probabilidad de cada mensaje - 25/Septiembre/2018
-mensaje = 0:255;                   % Mensajes disponibles
-count = histcounts(I, mensaje);    % Contar total de cada mensaje
-total = numel(I);                  % Total de mensajes
-fr = count/total;                  % Cálculo de frecuencia relativa
-
 % Dividir imagen en bloques de 8x8 pixeles
 % Aplicar DCT a cada bloque de 8x8 pixeles
 fun = @(block_struct) dct2(block_struct.data);   % Función para cada bloque
-C= blockproc(I,[8 8], fun);
+C = blockproc(I,[8 8], fun);
 
 % Hacer cero los coeficientes de la DCT mayores a 'umbral'
 % Aplicar DCT inversa a la matriz con valores de cero
 
 % Calcular la entropía (H) de la imagen original - 25/Septiembre/2018
-H=sum(fr.*log2(1./fr), 'omitnan');
+H1 = entropia(I);
 
 % Calcular la entropía de la DCT
 % Calcular la entropía de la DCT inversa
@@ -52,10 +46,10 @@ H=sum(fr.*log2(1./fr), 'omitnan');
 close all
 figure('units', 'normalized', 'outerposition', [0 0 1 1])
 
-P1 = subplot(221, 'Position', [0.05 0.5838 0.3347 0.3412]);
+P1 = subplot('Position', [0.05 0.5838 0.3347 0.3412]);
     imshow(I)
     title('Original', 'FontSize', 14)
-    text(P1.XLim(2)*1.05, P1.YLim(2)/2, ['H =  ',num2str(H)], 'FontSize', 13)
+    text(P1.XLim(2)*1.05, P1.YLim(2)/2, ['H =  ',num2str(H1)], 'FontSize', 13)
 
 % Desplegar DCT
 subplot(222)
@@ -64,5 +58,17 @@ subplot(222)
 % Desplegar DCT con coeficientes de cero
 % Desplegar imagen recreada
 % Desplegar los cálculos de ECM, Err y % de compresión
+
+end
+
+function H = entropia(I)
+
+% Cálculo de probabilidad
+count = histcounts(I, unique(I));    % Total por mensaje
+total = numel(I);
+fr = count/total;
+
+% Cálculo de entropía
+H=sum(fr.*log2(1./fr), 'omitnan');
 
 end
