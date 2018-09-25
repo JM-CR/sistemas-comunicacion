@@ -31,6 +31,9 @@ fr = count/total;                  % Cálculo de frecuencia relativa
 
 % Dividir imagen en bloques de 8x8 pixeles
 % Aplicar DCT a cada bloque de 8x8 pixeles
+fun = @(block_struct) dct2(block_struct.data);   % Función para cada bloque
+C= blockproc(I,[8 8], fun);
+
 % Hacer cero los coeficientes de la DCT mayores a 'umbral'
 % Aplicar DCT inversa a la matriz con valores de cero
 
@@ -55,6 +58,9 @@ P1 = subplot(221, 'Position', [0.05 0.5838 0.3347 0.3412]);
     text(P1.XLim(2)*1.05, P1.YLim(2)/2, ['H =  ',num2str(H)], 'FontSize', 13)
 
 % Desplegar DCT
+subplot(222)
+    imshow(C)
+
 % Desplegar DCT con coeficientes de cero
 % Desplegar imagen recreada
 % Desplegar los cálculos de ECM, Err y % de compresión
