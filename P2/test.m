@@ -30,7 +30,13 @@ entropia(comp)
 % Calcular el error cuadrático medio (ECM) - Pendiente
 % Calcular potencia de la imagen - Moshi
 % Calcular porcentaje de compresión - Rodrigo
+noCeros = sum(abs(dct(:)) > 0);
+pixeles = numel(dct);
+porComp = (1 - (noCeros/pixeles))*100;
+
 % Calcular porcentaje Err (ECM/Pot) - Rodrigo
+
+
 
 % Mostrar imagenes
 close all
