@@ -28,9 +28,8 @@ fun = @(block_struct) dct2(block_struct.data);   % Función para cada bloque
 C = blockproc(I,[8 8], fun);
 
 % Hacer cero los coeficientes de la DCT mayores a 'umbral'
-mCeros = abs(C) < umbral;
+mCeros = abs(C) < umbral;    % Hallar valores menores a umbral
 cUmbral = C.*mCeros;
-%cUmbral(abs(C) < umbral) = 0;
 
 % Aplicar DCT inversa a la matriz con valores de cero (cUmbral)
 fun2 = @(block_struct) idct2(block_struct.data);   % Función para cada bloque
@@ -57,25 +56,25 @@ H4 = entropia(comprimida);
 close all
 figure('units', 'normalized', 'outerposition', [0 0 1 1])
 
-P1 = subplot(221);
+P1 = subplot('Position', [0.07 0.5538 0.3347 0.3412]);
     imshow(I)
     title('Original', 'FontSize', 14)
     text(P1.XLim(2)*1.05, P1.YLim(2)/2, ['H =  ',num2str(H1)], 'FontSize', 13)
 
 % Desplegar DCT
-P2 = subplot(222);
+P2 = subplot('Position', [0.5403 0.5538 0.3347 0.3412]);
     imshow(C)
     title('DCT', 'FontSize', 14)
     text(P2.XLim(2)*1.05, P2.YLim(2)/2, ['H =  ',num2str(H2)], 'FontSize', 13)
 
 % Desplegar DCT con coeficientes de cero
-P3 = subplot(223);
+P3 = subplot('Position', [0.07 0.1100 0.3347 0.3412]);
     imshow(cUmbral)
     title('Umbral', 'FontSize', 14)
     text(P3.XLim(2)*1.05, P3.YLim(2)/2, ['H =  ',num2str(H3)], 'FontSize', 13)
 
 % Desplegar imagen recreada
-P4 = subplot(224);
+P4 = subplot('Position', [0.5403 0.1100 0.3347 0.3412]);
     imshow(uint8(comprimida))
     title('Comprimida', 'FontSize', 14)
     text(P4.XLim(2)*1.05, P4.YLim(2)/2, ['H =  ',num2str(H4)], 'FontSize', 13)
