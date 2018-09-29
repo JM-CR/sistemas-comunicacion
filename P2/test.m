@@ -6,22 +6,31 @@ color = imread(dir);
 % Convertir a BN y calcular entropia
 BN = rgb2gray(color);
 H1=entropy(BN);
+entropia(BN)
 
 % Aplicar DCT en bloques y calcular entropia
 fun = @(block_struct) dct2(block_struct.data);   % Función para cada bloque
 dct = blockproc(BN,[8 8], fun);
 H2=entropy(dct);
+entropia(dct)
 dctSin = dct;
 
 % Aplicar umbral y calcular entropia
 dct(abs(dct) < umbral) = 0;
 H3=entropy(dct);
+entropia(dct)
 dctCon = dct;
 
 % Aplicar IDCT en bloques y calcular entropia
 fun2 = @(block_struct) idct2(block_struct.data);   % Función para cada bloque
 comp = blockproc(dct,[8 8], fun2);
 H4=entropy(comp);
+entropia(comp)
+
+% Calcular el error cuadrático medio (ECM) - Pendiente
+% Calcular potencia de la imagen - Moshi
+% Calcular porcentaje de compresión - Rodrigo
+% Calcular porcentaje Err (ECM/Pot) - Rodrigo
 
 % Mostrar imagenes
 close all
@@ -47,3 +56,5 @@ P4 = subplot(224);
     title('Comprimida', 'FontSize', 14)
     text(P4.XLim(2)*1.05, P4.YLim(2)/2, ['H =  ',num2str(H4)], 'FontSize', 13)
 end
+
+% Desplegar los cálculos de ECM, Err y % de compresión - Moshi

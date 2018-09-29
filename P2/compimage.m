@@ -48,10 +48,10 @@ H3 = entropia(cUmbral);
 % Calcular la entropía de la imagen recontruida
 H4 = entropia(comprimida);
 
-% Calcular el error cuadrático medio (ECM)
-% Calcular potencia de la imagen
-% Calcular porcentaje de compresión
-% Calcular porcentaje Err (ECM/Pot)
+% Calcular el error cuadrático medio (ECM) - Pendiente
+% Calcular potencia de la imagen - Moshi
+% Calcular porcentaje de compresión - Rodrigo
+% Calcular porcentaje Err (ECM/Pot) - Rodrigo
 
 % Desplegar imagen original - 25/Septiembre/2018
 close all
@@ -80,6 +80,6 @@ P4 = subplot(224);
     title('Comprimida', 'FontSize', 14)
     text(P4.XLim(2)*1.05, P4.YLim(2)/2, ['H =  ',num2str(H4)], 'FontSize', 13)
 
-% Desplegar los cálculos de ECM, Err y % de compresión
+% Desplegar los cálculos de ECM, Err y % de compresión - Moshi
 
 end
