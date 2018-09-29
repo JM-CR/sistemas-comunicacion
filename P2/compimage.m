@@ -23,7 +23,6 @@ function compimage(dir, umbral)
 A = imread(dir);     % Leer imagen
 I = rgb2gray(A);     % Pasar a blanco y negro
 
-% Dividir imagen en bloques de 8x8 pixeles
 % Aplicar DCT a cada bloque de 8x8 pixeles
 fun = @(block_struct) dct2(block_struct.data);   % Función para cada bloque
 C = blockproc(I,[8 8], fun);
@@ -31,6 +30,7 @@ C = blockproc(I,[8 8], fun);
 % Hacer cero los coeficientes de la DCT mayores a 'umbral'
 mCeros = abs(C) < umbral;
 cUmbral = C.*mCeros;
+%cUmbral(abs(C) < umbral) = 0;
 
 % Aplicar DCT inversa a la matriz con valores de cero (cUmbral)
 fun2 = @(block_struct) idct2(block_struct.data);   % Función para cada bloque
@@ -38,10 +38,20 @@ comprimida = blockproc(cUmbral,[8 8], fun2);
 
 % Calcular la entropía (H) de la imagen original - 25/Septiembre/2018
 H1 = entropia(I);
+entropy(I)
 
 % Calcular la entropía de la DCT
-% Calcular la entropía de la DCT inversa
+H2 = entropia(abs(C));
+entropy(C)
+
+% Calcular la entropía de la DCT con valores de cero
+H3 = entropia(abs(cUmbral));
+entropy(cUmbral)
+
 % Calcular la entropía de la imagen recontruida
+H4 = entropia(comprimida);
+entropy(comprimida)
+
 % Calcular el error cuadrático medio (ECM)
 % Calcular potencia de la imagen
 % Calcular porcentaje de compresión
@@ -51,22 +61,28 @@ H1 = entropia(I);
 close all
 figure('units', 'normalized', 'outerposition', [0 0 1 1])
 
-P1 = subplot('Position', [0.05 0.5838 0.3347 0.3412]);
+P1 = subplot(221);
     imshow(I)
     title('Original', 'FontSize', 14)
     text(P1.XLim(2)*1.05, P1.YLim(2)/2, ['H =  ',num2str(H1)], 'FontSize', 13)
 
 % Desplegar DCT
-subplot(222)
+P2 = subplot(222);
     imshow(C)
+    title('DCT', 'FontSize', 14)
+    text(P2.XLim(2)*1.05, P2.YLim(2)/2, ['H =  ',num2str(H2)], 'FontSize', 13)
 
 % Desplegar DCT con coeficientes de cero
-subplot(223)
+P3 = subplot(223);
     imshow(cUmbral)
-    
+    title('Umbral', 'FontSize', 14)
+    text(P3.XLim(2)*1.05, P3.YLim(2)/2, ['H =  ',num2str(H3)], 'FontSize', 13)
+
 % Desplegar imagen recreada
-subplot(224)
+P4 = subplot(224);
     imshow(uint8(comprimida))
+    title('Comprimida', 'FontSize', 14)
+    text(P4.XLim(2)*1.05, P4.YLim(2)/2, ['H =  ',num2str(H4)], 'FontSize', 13)
 
 % Desplegar los cálculos de ECM, Err y % de compresión
 
