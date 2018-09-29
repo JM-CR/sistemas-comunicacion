@@ -1,12 +1,12 @@
 % Calcula la DCT de bloques de 8x8 pixeles de una imagen para su procesamiento
 % y almacenamiento digital. 
 %
-% El objetivo es visualizar la codificaciï¿½n de entropï¿½a al procesar una
-% imagen con la Discrete Cosine Transform para comprimir y compactar energï¿½a.
+% El objetivo es visualizar la codificación de entropía al procesar una
+% imagen con la Discrete Cosine Transform para comprimir y compactar energía.
 %
-% La imagen a tratar serï¿½ finalmente a blanco y negro. El valor de umbral
-% serï¿½ usado para quitar componentes de alta frecuencia y visualizar la
-% pï¿½rdida en la calidad.
+% La imagen a tratar será finalmente a blanco y negro. El valor de umbral
+% será usado para quitar componentes de alta frecuencia y visualizar la
+% pérdida en la calidad.
 %       
 %    compimage(dir, umbral)
 %
@@ -25,22 +25,26 @@ I = rgb2gray(A);     % Pasar a blanco y negro
 
 % Dividir imagen en bloques de 8x8 pixeles
 % Aplicar DCT a cada bloque de 8x8 pixeles
-fun = @(block_struct) dct2(block_struct.data);   % Funciï¿½n para cada bloque
+fun = @(block_struct) dct2(block_struct.data);   % Función para cada bloque
 C = blockproc(I,[8 8], fun);
 
 % Hacer cero los coeficientes de la DCT mayores a 'umbral'
 mCeros = abs(C) < umbral;
 cUmbral = C.*mCeros;
 
-% Calcular la entropï¿½a (H) de la imagen original - 25/Septiembre/2018
+% Aplicar DCT inversa a la matriz con valores de cero (cUmbral)
+fun2 = @(block_struct) idct2(block_struct.data);   % Función para cada bloque
+comprimida = blockproc(cUmbral,[8 8], fun2);
+
+% Calcular la entropía (H) de la imagen original - 25/Septiembre/2018
 H1 = entropia(I);
 
-% Calcular la entropï¿½a de la DCT
-% Calcular la entropï¿½a de la DCT inversa
-% Calcular la entropï¿½a de la imagen recontruida
-% Calcular el error cuadrï¿½tico medio (ECM)
+% Calcular la entropía de la DCT
+% Calcular la entropía de la DCT inversa
+% Calcular la entropía de la imagen recontruida
+% Calcular el error cuadrático medio (ECM)
 % Calcular potencia de la imagen
-% Calcular porcentaje de compresiï¿½n
+% Calcular porcentaje de compresión
 % Calcular porcentaje Err (ECM/Pot)
 
 % Desplegar imagen original - 25/Septiembre/2018
@@ -62,20 +66,20 @@ subplot(223)
     
 % Desplegar imagen recreada
 subplot(224)
-    imshow(comprimida)
+    imshow(uint8(comprimida))
 
-% Desplegar los cï¿½lculos de ECM, Err y % de compresiï¿½n
+% Desplegar los cálculos de ECM, Err y % de compresión
 
 end
 
 function H = entropia(I)
 
-% Cï¿½lculo de probabilidad
+% Cálculo de probabilidad
 count = histcounts(I, unique(I));    % Total por mensaje
 total = numel(I);
 fr = count/total;
 
-% Cï¿½lculo de entropï¿½a
+% Cálculo de entropía
 H=sum(fr.*log2(1./fr), 'omitnan');
 
 end
