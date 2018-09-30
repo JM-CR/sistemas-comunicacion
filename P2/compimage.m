@@ -38,19 +38,15 @@ comprimida = blockproc(cUmbral,[8 8], fun2);
 
 % Calcular la entropía (H) de la imagen original - 25/Septiembre/2018
 H1 = entropia(I);
-entropy(I)
 
 % Calcular la entropía de la DCT
-H2 = entropia(abs(C));
-entropy(C)
+H2 = entropia(C);
 
 % Calcular la entropía de la DCT con valores de cero
-H3 = entropia(abs(cUmbral));
-entropy(cUmbral)
+H3 = entropia(cUmbral);
 
 % Calcular la entropía de la imagen recontruida
 H4 = entropia(comprimida);
-entropy(comprimida)
 
 % Calcular el error cuadrático medio (ECM)
 % Calcular potencia de la imagen
@@ -85,17 +81,5 @@ P4 = subplot(224);
     text(P4.XLim(2)*1.05, P4.YLim(2)/2, ['H =  ',num2str(H4)], 'FontSize', 13)
 
 % Desplegar los cálculos de ECM, Err y % de compresión
-
-end
-
-function H = entropia(I)
-
-% Cálculo de probabilidad
-count = histcounts(I, unique(I));    % Total por mensaje
-total = numel(I);
-fr = count/total;
-
-% Cálculo de entropía
-H=sum(fr.*log2(1./fr), 'omitnan');
 
 end
