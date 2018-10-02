@@ -48,6 +48,8 @@ H3 = entropia(cUmbral);
 H4 = entropia(comprimida);
 
 % Calcular el error cuadrático medio (ECM)
+ecm = sum((comprimida(:) - double(I(:))).^2)./numel(comprimida);
+
 % Calcular potencia de la imagen
 % Calcular porcentaje de compresión
 noCeros = sum(abs(cUmbral(:)) > 0);
@@ -77,12 +79,12 @@ P2 = subplot('Position', [0.5403 0.5238 0.3347 0.3412]);
     title('DCT', 'FontSize', 14)
     text(P2.XLim(2)*1.05, P2.YLim(2)/2, ['H =  ',num2str(H2)], 'FontSize', 13)
 
-% Desplegar DCT con coeficientes de cero, ECM y potencia de imagen
+% Desplegar DCT con coeficientes de cero, ECM y Err
 P3 = subplot('Position', [0.07 0.1100 0.3347 0.3412]);
     imshow(cUmbral)
     title('Umbral', 'FontSize', 14)
     text(P3.XLim(2)*1.05, P3.YLim(2)/2, ['H =  ',num2str(H3)], 'FontSize', 13)
-    text(P3.XLim(2)*.3, P3.YLim(2)*1.15, ['ECM =  ' num2str(porComp)], 'FontSize', 13)    % ECM
+    text(P3.XLim(2)*.3, P3.YLim(2)*1.15, ['ECM =  ' num2str(ecm)], 'FontSize', 13)     % ECM
     text(P3.XLim(2)*1.17, P3.YLim(2)*1.15, ['Err =  ' num2str(porComp)], 'FontSize', 13)   % Err
     
 % Desplegar imagen recreada y porcentaje de compresión
