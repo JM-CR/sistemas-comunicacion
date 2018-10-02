@@ -51,15 +51,17 @@ H4 = entropia(comprimida);
 ecm = sum((comprimida(:) - double(I(:))).^2)./numel(comprimida);
 
 % Calcular potencia de la imagen
+potImagen = sum(I(:).^2);
+
 % Calcular porcentaje de compresión
 noCeros = sum(abs(cUmbral(:)) > 0);
 pixeles = numel(cUmbral);
 porComp = (1 - (noCeros/pixeles))*100;
 
 % Calcular porcentaje Err (ECM/Pot)
+err = ecm/potImagen*100;
 
-
-% Desplegar imagen original
+% Crear figure y asignar propiedades
 close all
 figure('units', 'normalized', 'outerposition', [0 0 1 1])
 T = annotation('textbox', [0.26 0.95 .45 .04]);     % Título global
@@ -68,6 +70,7 @@ T = annotation('textbox', [0.26 0.95 .45 .04]);     % Título global
     set(T, 'HorizontalAlignment', 'center');
     set(T, 'LineStyle', 'none', 'FontSize', 15);
     
+% Desplegar imagen original
 P1 = subplot('Position', [0.07 0.5238 0.3347 0.3412]);
     imshow(I)
     title('Original', 'FontSize', 14)
@@ -84,14 +87,18 @@ P3 = subplot('Position', [0.07 0.1100 0.3347 0.3412]);
     imshow(cUmbral)
     title('Umbral', 'FontSize', 14)
     text(P3.XLim(2)*1.05, P3.YLim(2)/2, ['H =  ',num2str(H3)], 'FontSize', 13)
-    text(P3.XLim(2)*.3, P3.YLim(2)*1.15, ['ECM =  ' num2str(ecm)], 'FontSize', 13)     % ECM
-    text(P3.XLim(2)*1.17, P3.YLim(2)*1.15, ['Err =  ' num2str(porComp)], 'FontSize', 13)   % Err
+
+% Desplegar ECM y ERR
+text(P3.XLim(2)*.3, P3.YLim(2)*1.15, ['ECM =  ' num2str(ecm)], 'FontSize', 13)
+text(P3.XLim(2)*1.17, P3.YLim(2)*1.15, ['Err =  ' num2str(err) '%'], 'FontSize', 13)
     
 % Desplegar imagen recreada y porcentaje de compresión
 P4 = subplot('Position', [0.5403 0.1100 0.3347 0.3412]);
     imshow(uint8(comprimida))
     title('Comprimida', 'FontSize', 14)
     text(P4.XLim(2)*1.05, P4.YLim(2)/2, ['H =  ',num2str(H4)], 'FontSize', 13)
-    text(P4.XLim(2)*.3, P4.YLim(2)*1.15, ['% Compresión =  ' num2str(porComp) '%'], 'FontSize', 13)   % Compresión
+    
+% Desplegar porcentaje de compresión
+text(P4.XLim(2)*.3, P4.YLim(2)*1.15, ['% Compresión =  ' num2str(porComp) '%'], 'FontSize', 13)   % Compresión
     
 end
