@@ -25,24 +25,25 @@ I = rgb2gray(A);     % Pasar a blanco y negro
 
 % Aplicar DCT a cada bloque de 8x8 pixeles
 fun = @(block_struct) dct2(block_struct.data);   % Función para cada bloque
-C = blockproc(I,[8 8], fun);
+dct = blockproc(I,[8 8], fun);
+dctSin = dct;
 
 % Hacer cero los coeficientes de la DCT mayores a 'umbral'
-mCeros = abs(C) < umbral;    % Hallar valores menores a umbral
-cUmbral = C.*mCeros;
+dct(abs(dct) < umbral) = 0;
+dctCon = dct;
 
 % Aplicar DCT inversa a la matriz con valores de cero (cUmbral)
-fun2 = @(block_struct) idct2(block_struct.data);   % Función para cada bloque
-comprimida = blockproc(cUmbral,[8 8], fun2);
+fun = @(block_struct) idct2(block_struct.data);   % Función para cada bloque
+comprimida = blockproc(dct, [8 8], fun);
 
 % Calcular la entropía (H) de la imagen original
 H1 = entropia(I);
 
 % Calcular la entropía de la DCT
-H2 = entropia(C);
+H2 = entropia(dctSin);
 
 % Calcular la entropía de la DCT con valores de cero
-H3 = entropia(cUmbral);
+H3 = entropia(dctCon);
 
 % Calcular la entropía de la imagen recontruida
 H4 = entropia(comprimida);
@@ -54,8 +55,8 @@ ecm = sum((comprimida(:) - double(I(:))).^2)./numel(comprimida);
 potImagen = sum(I(:).^2);
 
 % Calcular porcentaje de compresión
-noCeros = sum(abs(cUmbral(:)) > 0);
-pixeles = numel(cUmbral);
+noCeros = sum(abs(dctCon(:)) > 0);
+pixeles = numel(dctCon);
 porComp = (1 - (noCeros/pixeles))*100;
 
 % Calcular porcentaje Err (ECM/Pot)
@@ -78,14 +79,14 @@ P1 = subplot('Position', [0.07 0.5238 0.3347 0.3412]);
 
 % Desplegar DCT
 P2 = subplot('Position', [0.5403 0.5238 0.3347 0.3412]);
-    imshow(C)
-    title('DCT', 'FontSize', 14)
+    imshow(dctSin)
+    title('DCT sin Umbral', 'FontSize', 14)
     text(P2.XLim(2)*1.05, P2.YLim(2)/2, ['H =  ',num2str(H2)], 'FontSize', 13)
 
 % Desplegar DCT con coeficientes de cero, ECM y Err
 P3 = subplot('Position', [0.07 0.1100 0.3347 0.3412]);
-    imshow(cUmbral)
-    title('Umbral', 'FontSize', 14)
+    imshow(dctCon)
+    title('DCT con Umbral', 'FontSize', 14)
     text(P3.XLim(2)*1.05, P3.YLim(2)/2, ['H =  ',num2str(H3)], 'FontSize', 13)
 
 % Desplegar ECM y ERR
