@@ -1,20 +1,20 @@
-% Calcula el límite teórico de compresión o entropía.
+% Calcula el lÃ­mite teÃ³rico de compresiÃ³n o entropÃ­a.
 %
 %     H = entropia(I)
 %
 % @param I Matriz de mensajes
-% @return H Valor de la entropía
+% @return H Valor de la entropÃ­a
 %
 % @author Josue M. Contreras Rocha
 % @date 29/Septiembre/2018
 
 function H = entropia(I)
 
-% Cálculo de probabilidad
+% CÃ¡lculo de probabilidad
 count = imhist(I);    % Total por mensaje
 fr = count/numel(I);
 
-% Cálculo de entropía
+% CÃ¡lculo de entropÃ­a
 H = sum(fr.*log2(1./fr), 'omitnan');
 
 end
