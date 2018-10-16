@@ -1,11 +1,11 @@
-% Grafica una señal continua dada en un archivo y brinda parámetros útiles.
-% La señal de entrada debe estar muestreada a cualquier tasa o frecuencia.
+% Grafica una seÃ±al continua dada en un archivo y brinda parÃ¡metros Ãºtiles.
+% La seÃ±al de entrada debe estar muestreada a cualquier tasa o frecuencia.
 %
 %     [y, fs] = voz(archivo)
 %
 % @param archivo Nombre del archivo con valores muestreados
 % @return y Amplitud de cada muestra del bit 1 hasta el bit fs
-% @return fs Frecuencia o tasa de muestreo de la señal dada
+% @return fs Frecuencia o tasa de muestreo de la seÃ±al dada
 %
 % @author Rodrigo Roberto Arce Anguiano
 % @author Josue Mosiah Contreras Rocha
@@ -13,16 +13,16 @@
 
 function [y, fs] = voz(archivo)
 
-% Imprimir parámetros del archivo
-audioinfo('vozP0.wav')
+% Imprimir parÃ¡metros del archivo
+audioinfo(archivo)
 
 % Leer contenido del archivo
 [y, fs] = audioread(archivo);
 
-% Crear vector de tiempo para la graficación
+% Crear vector de tiempo para la graficaciÃ³n
 t = 0:1/fs:(length(y) - 1)/fs;
         
-% Graficar toda la señal continua
+% Graficar toda la seÃ±al continua
 subplot(211)
     plot(t, y); grid on
     title('Josue y Rodrigo (A)')
@@ -30,7 +30,7 @@ subplot(211)
     ylabel('Amplitud')
     legend('De 0 a 1 segundo')
 
-% Graficar la décima parte de la señal continua
+% Graficar la dÃ©cima parte de la seÃ±al continua
 subplot(212)
     plot(t, y); grid on
     axis([0 0.1 min(y) max(y)])

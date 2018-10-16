@@ -7,5 +7,6 @@ function c = mapmodul(v, modo, modul)
 % Generar bitstream
 
 % Mapear valores binarios a complejo
+c = 1;
 
 end
