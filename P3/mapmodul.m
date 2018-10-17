@@ -1,22 +1,42 @@
+% Realiza el mapeo de modulación.
+%
+%     c = mapmodul(v, modo, modul)
+%
+% @param v Muestras del archivo de audio a fs
+% @param modo Elección de tamaño de trama
+%              0 = Subportadoras de 2048 (modo 2k)
+%              1 = Subportadoras de 8192 (modo 8k)
+%
+% @param modul Elección del tipo de modulación
+%               0 = QPSK
+%               1 = 16-QAM
+%
+% @return y Señal ofdm analógica
+%
+% @author Josue M. Contreras Rocha
+% @author Rodrigo Roberto Arce Anguiano
+% @date 17/Octubre/2018
+
 function c = mapmodul(v, modo, modul)
 
-% Escalar valores de 'v' a un rango de 0 a 255
-esc = uint8(v);
-
 % Pasar cada valor a binario | En bytes
-bin = dec2bin(esc);
+bin = dec2bin(v);
 
 % Generar bitstream
-str = convertCharsToStrings(bin);
+stream = convertCharsToStrings(bin);
 
+% Evaluar tamaño para la modulación
+if modul == 0 
+    tamGroup = 2;   % QPSK
+elseif modul == 1
+    tamGroup = 4;   % 16-QAM
+end
+    
 % Recortar bitstream cada n chars
-str = regexp(str, sprintf('\\w{1,%d}', n), 'match');
-
-%Regresar bitstream a chars
-chr = convertStringsToChars(str);
-chr = char(chr);
+bitGroup = regexp(stream, sprintf('\\d{%d}', tamGroup), 'match');   
 
 % Mapear valores binarios a complejo
-c = 1;
+
+c = bitGroup;
 
 end
