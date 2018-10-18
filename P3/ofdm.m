@@ -54,6 +54,6 @@ end
 [v , fs] = audioread(arch,'native');
 
 % Mapeo de modulación
-c = mapmodul(v, modo, modul);
+y = mapmodul(v, modo, modul);
 
 end
