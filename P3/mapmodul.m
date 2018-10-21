@@ -35,14 +35,11 @@ end
 % Recortar bitstream cada n chars
 bitGroup = regexp(stream, sprintf('\\d{%d}', tamGroup), 'match');   
 
-% Mapear valores binarios a complejo
+% Mapear valores binarios a complejo | Generar tramas
 if modul == 0
-    bitGroup = qpsk(bitGroup);
-else   
-    bitGroup = qam(bitGroup);
+    c = qpsk(bitGroup, modo)';   % Regresar transpuesta
+else
+    c = qam(bitGroup, modo)';    % Regresar transpuesta
 end
-
-% Generar tramas
-c = bitGroup;
 
 end
