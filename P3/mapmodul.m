@@ -37,33 +37,12 @@ bitGroup = regexp(stream, sprintf('\\d{%d}', tamGroup), 'match');
 
 % Mapear valores binarios a complejo
 if modul == 0
-    bitGroup(bitGroup == '00') = 1 + 1j;
-    bitGroup(bitGroup == '01') = 1 - 1j;
-    bitGroup(bitGroup == '10') = -1 + 1j;
-    bitGroup(bitGroup == '11') = -1 - 1j;
-else
-    bitGroup(bitGroup == '0000') = 3 + 3j;
-    bitGroup(bitGroup == '0001') = 3 + 1j;
-    bitGroup(bitGroup == '0010') = 1 + 3j;
-    bitGroup(bitGroup == '0011') = 1 + 1j;
-    bitGroup(bitGroup == '0100') = 3 - 3j;
-    bitGroup(bitGroup == '0101') = 3 - 1j;
-    bitGroup(bitGroup == '0110') = 1 - 3j;
-    bitGroup(bitGroup == '0111') = 1 - 1j;
-    bitGroup(bitGroup == '1000') = -3 + 3j;
-    bitGroup(bitGroup == '1001') = -3 + 1j;
-    bitGroup(bitGroup == '1010') = -1 + 3j;
-    bitGroup(bitGroup == '1011') = -1 + 1j;
-    bitGroup(bitGroup == '1100') = -3 - 3j;
-    bitGroup(bitGroup == '1101') = -3 - 1j;
-    bitGroup(bitGroup == '1110') = -1 - 3j;
-    bitGroup(bitGroup == '1111') = -1 - 1j;
+    bitGroup = qpsk(bitGroup);
+else   
+    bitGroup = qam(bitGroup);
 end
 
-% Mapeo de string a número
-complexVector = str2double(bitGroup);
-
 % Generar tramas
-c = complexVector;
+c = bitGroup;
 
 end

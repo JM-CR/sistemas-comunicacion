@@ -51,9 +51,9 @@ if modul ~= 0 && modul ~= 1
 end
 
 % Leer señal de audio
-[v , fs] = audioread(arch,'native');
+[v , ~] = audioread(arch,'native');
 
 % Mapeo de modulación
-y = mapmodul(v, modo, modul);
+c = mapmodul(v, modo, modul);
 
 end
