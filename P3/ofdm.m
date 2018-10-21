@@ -56,4 +56,7 @@ end
 % Mapeo de modulación
 c = mapmodul(v, modo, modul);
 
+% Crear subportadoras
+subPort = ifft(c);
+
 end

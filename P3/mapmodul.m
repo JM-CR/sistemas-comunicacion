@@ -28,7 +28,7 @@ stream = convertCharsToStrings(bin);
 % Evaluar tamaño para la modulación
 if modul == 0 
     tamGroup = 2;   % QPSK
-elseif modul == 1
+else
     tamGroup = 4;   % 16-QAM
 end
     
