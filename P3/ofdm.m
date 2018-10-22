@@ -59,4 +59,12 @@ c = mapmodul(v, modo, modul);
 % Crear subportadoras
 subPort = ifft(c);
 
+% Calcular armónicas de la serie de Fourier 
+y = fourier(subPort);
+
+% Generar gráfica
+T = 0.01;
+x = 0 : T : T*(length(y) - 1);
+plot(x, y);
+
 end
