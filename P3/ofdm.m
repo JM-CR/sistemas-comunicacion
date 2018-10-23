@@ -66,5 +66,8 @@ y = fourier(subPort);
 T = 0.01;
 x = 0 : T : T*(length(y) - 1);
 plot(x, y);
+    title('Práctica 3. Josue Contreras y Rodrigo Arce');
+    xlabel('tiempo (s)');
+    ylabel('Armónicas');
 
 end
