@@ -2,8 +2,12 @@
 %
 %   pot = potBand(type, frec)
 %
-% @param type Número de señal elegida
 % @param frec Frecuencia fundamental en Hz
+% @param type Señal elegida
+%              1 = Senoidal
+%              2 = Cuadrada
+%              3 = Triangular
+%
 % @return pot Ancho de banda de potencia
 %
 % @author Josue M. Contreras Rocha

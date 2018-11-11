@@ -2,8 +2,12 @@
 %
 %   dec = decBand(type, frec)
 %
-% @param type Número de señal elegida
 % @param frec Frecuencia fundamental en Hz
+% @param type Señal elegida
+%              1 = Senoidal
+%              2 = Cuadrada
+%              3 = Triangular
+%
 % @return dec Ancho de banda de 3dB
 %
 % @author Josue M. Contreras Rocha
