@@ -1,8 +1,9 @@
 % Calcula el ancho de banda de 3dB para la señal elegida.
 %
-%   dec = decBand(type, frec)
+%   dec = decBand(type, dc, Cn)
 %
-% @param frec Frecuencia fundamental en Hz
+% @param dc Valor promedio de la señal
+% @param Cn Expresión de CTFS váida para n > 0
 % @param type Señal elegida
 %              1 = Senoidal
 %              2 = Cuadrada
@@ -14,6 +15,6 @@
 % @author Rodrigo Roberto Arce Anguiano
 % @date 11/Noviembre/2018
 
-function dec = decBand(type, frec)
+function dec = decBand(type, dc, Cn)
 
 end

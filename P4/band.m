@@ -1,8 +1,9 @@
 % Calcula el ancho de banda absoluto, de 3dB y de potencia para señales periódicas.
 % 
-%   band(type, frec)
+%   band(type, frec, ampl)
 %
 % @param frec Frecuencia fundamental en Hz
+% @param ampl Amplitud de la señal
 % @param type Señal elegida
 %              1 = Senoidal
 %              2 = Cuadrada
@@ -12,21 +13,20 @@
 % @author Rodrigo Roberto Arce Anguiano
 % @date 11/Noviembre/2018
 
-function band(type, frec)
+function band(type, frec, ampl)
 
 % Validar argumentos
 if type < 1 || type > 3
    error('Invalid value of type') 
 end
 
-% Calcular BW absoluto
-abs = absBand(type, frec);
+% Obtener CTFS
+[dc, Cn, P] = fourierSerie(type, frec, ampl);
 
-% Calcular BW de 3dB
-dec = decBand(type, frec);
-
-% Calcular BW de potencia
-pot = potBand(type, frec);
+% Calcular ancho de banda
+abs = absBand(type, dc, Cn);     % Absoluto
+dec = decBand(type, dc, Cn);     % De 3dB
+pot = potBand(type, dc, Cn, P);  % De potencia
 
 % Desplegar resultados
 fprintf('\n  Ancho de banda de 3dB: %.3f Hz', dec)
