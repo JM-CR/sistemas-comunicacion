@@ -24,13 +24,13 @@ end
 [dc, Cn, P] = fourierSerie(type, frec, ampl);
 
 % Calcular ancho de banda
-abs = absBand(type, Cn);              % Absoluto
-dec = decBand(type, dc, Cn, frec);    % De 3dB
-pot = potBand(type, dc, Cn, P);       % De potencia
+abs = absBand(type, Cn);               % Absoluto
+dec = decBand(type, Cn, P, frec);      % De 3dB
+pot = potBand(type, dc, Cn, P, frec);  % De potencia
 
 % Desplegar resultados
-fprintf('\n  Ancho de banda de 3dB: %.3f Hz', dec)
-fprintf('\n  Ancho de banda absoluto: %.3f Hz', abs)
-fprintf('\n  Ancho de banda de potencia: %.3f Hz\n\n', pot)
+fprintf('\n  Ancho de banda de 3dB: %.2f Hz', dec)
+fprintf('\n  Ancho de banda absoluto: %.2f Hz', abs)
+fprintf('\n  Ancho de banda de potencia: %.2f Hz\n\n', pot)
 
 end
