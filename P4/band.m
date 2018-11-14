@@ -24,7 +24,7 @@ end
 [dc, Cn, P] = fourierSerie(type, frec, ampl);
 
 % Calcular ancho de banda
-abs = absBand(type, dc, Cn);     % Absoluto
+abs = absBand(type, Cn);         % Absoluto
 dec = decBand(type, dc, Cn);     % De 3dB
 pot = potBand(type, dc, Cn, P);  % De potencia
 

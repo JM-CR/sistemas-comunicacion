@@ -1,8 +1,7 @@
 % Calcula el ancho de banda absoluto para la señal elegida.
 %
-%   abs = absBand(type, dc, Cn)
+%   abs = absBand(type)
 %
-% @param dc Valor promedio de la señal
 % @param Cn Expresión de CTFS váida para n > 0
 % @param type Señal elegida
 %              1 = Senoidal
@@ -12,10 +11,16 @@
 % @return abs Ancho de banda absoluto
 %
 % @author Josue M. Contreras Rocha
-% @author Rodrigo Roberto Arce Anguiano
 % @date 11/Noviembre/2018
 
-function abs = absBand(type, dc, Cn)
+function abs = absBand(type, Cn)
+
+% Evaluar caso
+if type == 1    
+    abs = Cn;   % Senoidal
+else
+    abs = Inf;  % Cualquier otra periódica
+end
 
 end
 
