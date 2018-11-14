@@ -26,7 +26,7 @@ else
     cont = 1;           % Contador
     
     % Encontrar la armónica con mayor pérdida
-    while 2*Cn(cont)^2 > maxPot
+    while maxPot > 2*Cn(cont)^2
         cont = cont + 1;
     end
     
